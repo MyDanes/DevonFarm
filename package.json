@@ -1,0 +1,10 @@
+{
+  "name": "devonfarm",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Horse farm website with sales inventory",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test"
+  }
+}

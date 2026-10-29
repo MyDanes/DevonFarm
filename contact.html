@@ -207,7 +207,7 @@ footer.site a:hover{color:var(--ink);text-decoration:underline}
     </div>
 
     <form class="form" id="contactForm" novalidate>
-      <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+      <input type="hidden" name="access_key" value="f8f3b944-30f6-45bf-a234-2684d9098924">
       <input type="hidden" name="subject" value="New message from the Devon Farm website">
       <input type="hidden" name="from_name" value="Devon Farm Website">
       <div class="hp" aria-hidden="true"><label for="botcheck">Leave this empty</label><input type="checkbox" id="botcheck" name="botcheck" tabindex="-1" autocomplete="off"></div>
@@ -244,7 +244,7 @@ footer.site a:hover{color:var(--ink);text-decoration:underline}
     var d=Object.fromEntries(new FormData(f).entries());
     if(!d.name||!d.email||!d.message){say('Please fill in your name, email and message.','err');return}
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)){say('That email address does not look right.','err');return}
-    if(d.access_key==='YOUR_WEB3FORMS_ACCESS_KEY'){say('This form is not connected yet. Please check back soon.','err');return}
+    if(d.access_key==='f8f3b944-30f6-45bf-a234-2684d9098924'){say('This form is not connected yet. Please check back soon.','err');return}
     btn.disabled=true;say('Sending...');
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)})
       .then(function(r){return r.json()})

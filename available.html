@@ -1,0 +1,237 @@
+<title>Available Horses at Devon Farm</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: sticky top nav (same 8 menu items as Doodle Dandy), big split hero, available-horse cards, trust + process bands, news/blog teasers, contact band, footer. */
+:root{
+  --bg:#F2F4EE; --surface:#FFFFFF; --ink:#17241D; --muted:#56655C;
+  --line:#D9DED3; --pasture:#2F5D46; --pasture-deep:#1E3F2F; --brass:#B8892B; --brass-ink:#6B4C0E; --on-dark:#F2F4EE;
+  --display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#101A15; --surface:#18251E; --ink:#E9EEE6; --muted:#9FB0A5; --line:#2A3A31;
+  --pasture:#6FB08C; --pasture-deep:#0B1410; --brass:#D6A94A; --brass-ink:#E8C677; --on-dark:#E9EEE6; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#101A15; --surface:#18251E; --ink:#E9EEE6; --muted:#9FB0A5; --line:#2A3A31;
+  --pasture:#6FB08C; --pasture-deep:#0B1410; --brass:#D6A94A; --brass-ink:#E8C677; --on-dark:#E9EEE6; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 17px/1.6 var(--body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);line-height:1.08;text-wrap:balance;margin:0}
+h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-.01em}
+h3{font-size:21px;font-weight:700}
+p{margin:0}
+.eyebrow{font:600 12.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--brass-ink)}
+:focus-visible{outline:3px solid var(--brass);outline-offset:3px;border-radius:4px}
+
+/* header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--surface)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding-inline:max(16px,env(safe-area-inset-left,0px));background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 22px/1 var(--display);letter-spacing:-.01em}
+.brand img{height:52px;width:auto;display:block;background:none}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .brand img{filter:drop-shadow(0 0 1.5px rgba(242,244,238,.95)) drop-shadow(0 0 7px rgba(242,244,238,.35))}}
+:root[data-theme="dark"] .brand img{filter:drop-shadow(0 0 1.5px rgba(242,244,238,.95)) drop-shadow(0 0 7px rgba(242,244,238,.35))}
+nav ul{display:flex;gap:4px;list-style:none;margin:0;padding:0}
+nav a{display:block;padding:10px 12px;border-radius:8px;text-decoration:none;font-weight:500;font-size:15.5px;color:var(--muted)}
+nav a:hover{color:var(--ink);background:var(--bg)}
+nav a[aria-current]{color:var(--ink);box-shadow:inset 0 -3px 0 var(--brass);border-radius:0}
+nav li.cta a{background:var(--pasture-deep);color:var(--on-dark);margin-left:6px;font-weight:600}
+nav li.cta a:hover{background:var(--pasture);color:#fff}
+.menu-btn{display:none;background:none;border:1px solid var(--line);color:var(--ink);border-radius:8px;padding:9px 14px;font:600 15px var(--body);cursor:pointer}
+@media (max-width:980px){
+  .menu-btn{display:block}
+  nav{position:absolute;left:0;right:0;top:100%;background:var(--surface);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-left,0px)) 16px;display:none}
+  nav.open{display:block}
+  nav ul{flex-direction:column;gap:0}
+  nav a{padding:14px 4px;border-bottom:1px solid var(--line);border-radius:0;font-size:17px}
+  nav a[aria-current]{box-shadow:none;color:var(--pasture);font-weight:600}
+  nav li.cta a{margin:12px 0 0;text-align:center;border-radius:10px}
+}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:64px 56px}
+.hero h1{font-size:clamp(40px,6.4vw,72px);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--pasture)}
+.hero .lede{font-size:19px;color:var(--muted);max-width:52ch;margin-top:20px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.btn{display:inline-block;padding:14px 22px;border-radius:10px;text-decoration:none;font-weight:600;font-size:16px;border:2px solid var(--pasture-deep);background:var(--pasture-deep);color:var(--on-dark)}
+.btn:hover{background:var(--pasture);border-color:var(--pasture);color:#fff}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:var(--bg)}
+.photo{position:relative;border-radius:18px;overflow:hidden;min-height:340px;background:linear-gradient(180deg,#C9D8C1 0%,#9DB98F 55%,#5E8A5E 56%,#3F6B4A 100%)}
+.hero .photo{aspect-ratio:3/2;width:100%}
+.photo svg.fence{position:absolute;left:0;right:0;bottom:30%;width:100%;color:#F2F4EE;opacity:.9}
+.photo .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:left center;display:block}
+.photo .tag{position:absolute;left:14px;bottom:14px;background:rgba(16,26,21,.78);color:#F2F4EE;font:500 13px/1.3 var(--body);padding:8px 12px;border-radius:8px;max-width:calc(100% - 28px)}
+@media (max-width:860px){.hero{grid-template-columns:1fr;gap:32px;padding-block:40px 40px}.hero .photo{aspect-ratio:3/2;order:-1}}
+
+/* trust strip */
+.strip{background:var(--pasture-deep);color:var(--on-dark);margin-inline:calc(-1*max(16px,env(safe-area-inset-left,0px)));padding:26px max(16px,env(safe-area-inset-left,0px))}
+.strip ul{list-style:none;margin:0 auto;padding:0;max-width:1120px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.strip li{font-weight:500;font-size:16px;display:flex;gap:10px;align-items:flex-start}
+.strip li::before{content:"";flex:none;width:9px;height:9px;margin-top:.55em;border-radius:50%;background:var(--brass)}
+@media (max-width:860px){.strip ul{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.strip ul{grid-template-columns:1fr}}
+
+section{padding-block:72px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+.head .eyebrow{display:block;margin-bottom:12px}
+.head a.more{font-weight:600;color:var(--pasture)}
+
+/* horse cards */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:900px){.cards{grid-template-columns:1fr 1fr}}
+@media (max-width:600px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card .photo{min-height:0;aspect-ratio:4/3;border-radius:0}
+.card .body{padding:20px;display:flex;flex-direction:column;gap:10px;flex:1}
+.card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:15px}
+.card dt{color:var(--muted)}
+.card dd{margin:0;font-weight:500}
+.badge{position:absolute;top:12px;left:12px;background:var(--brass);color:#1b1405;font:700 12px/1 var(--body);letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;border-radius:6px}
+.card .row{margin-top:auto;padding-top:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.price{font:700 22px var(--display)}
+.card a.link{font-weight:600;color:var(--pasture);text-decoration:none}
+.card a.link:hover{text-decoration:underline}
+.note{margin-top:18px;font-size:14px;color:var(--muted)}
+
+/* why + process */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr;gap:32px}}
+.split p{color:var(--muted);margin-top:16px}
+.feat{display:grid;gap:16px}
+.feat div{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
+.feat h3{margin-bottom:6px}
+.feat p{margin:0;font-size:16px}
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:2px solid var(--ink)}
+.steps li{padding:22px 20px 0 0}
+.steps b{display:block;font:700 19px var(--display);margin-bottom:6px}
+.steps span{color:var(--muted);font-size:16px}
+@media (max-width:860px){.steps{grid-template-columns:1fr 1fr;row-gap:24px}}
+@media (max-width:480px){.steps{grid-template-columns:1fr}}
+
+/* reviews, news */
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+@media (max-width:860px){.quotes{grid-template-columns:1fr}}
+blockquote{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px}
+blockquote p{font-size:17px}
+blockquote footer{margin-top:14px;font-size:14px;color:var(--muted)}
+.posts{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+@media (max-width:700px){.posts{grid-template-columns:1fr}}
+.post{display:block;text-decoration:none;border-top:2px solid var(--ink);padding-top:16px}
+.post .eyebrow{display:block;margin-bottom:10px}
+.post h3{margin-bottom:8px}
+.post p{color:var(--muted);font-size:16px}
+.post:hover h3{color:var(--pasture)}
+
+/* contact */
+.contact{background:var(--pasture-deep);color:var(--on-dark);border-radius:22px;padding:clamp(28px,5vw,56px);display:grid;grid-template-columns:1.2fr .8fr;gap:32px;align-items:center}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+.contact h2{color:var(--on-dark)}
+.contact p{margin-top:14px;opacity:.85;max-width:48ch}
+.contact .btn{background:var(--brass);border-color:var(--brass);color:#1b1405}
+.contact .btn:hover{background:#d6a94a;border-color:#d6a94a;color:#1b1405}
+.contact .btn.ghost{background:transparent;color:var(--on-dark);border-color:var(--on-dark)}
+.contact .btn.ghost:hover{background:var(--on-dark);color:var(--pasture-deep)}
+.contact .btns{margin-top:0;flex-direction:column;align-items:stretch}
+.contact .btn{text-align:center}
+
+footer.site{border-top:1px solid var(--line);margin-top:72px;padding-block:32px 40px;font-size:15px;color:var(--muted)}
+footer.site .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+footer.site ul{list-style:none;display:flex;gap:18px;flex-wrap:wrap;margin:0;padding:0}
+footer.site a{text-decoration:none}
+footer.site a:hover{color:var(--ink);text-decoration:underline}
+@media (prefers-reduced-motion:no-preference){.btn,nav a{transition:background .15s,color .15s}}
+
+.page{padding-block:56px 24px;display:grid;grid-template-columns:.8fr 1.2fr;gap:48px;align-items:start}
+@media (max-width:860px){.page{grid-template-columns:1fr;gap:28px;padding-block:36px 8px}}
+.page h1{font-size:clamp(36px,5.4vw,56px);font-weight:800;letter-spacing:-.02em}
+.page .lede{color:var(--muted);font-size:18px;margin-top:16px;max-width:44ch}
+.form{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:clamp(20px,3.5vw,36px);display:grid;gap:18px}
+.form .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media (max-width:560px){.form .two{grid-template-columns:1fr}}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-weight:600;font-size:15px}
+.field label small{font-weight:400;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;font:400 16px/1.4 var(--body);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.field textarea{min-height:150px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{outline:3px solid var(--brass);outline-offset:1px;border-color:var(--brass)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.form button.btn{cursor:pointer;font-family:var(--body);justify-self:start}
+.form button[disabled]{opacity:.6;cursor:wait}
+.status{font-weight:500;min-height:1.4em}
+.status.ok{color:var(--pasture)}
+.status.err{color:#B3402A}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .status.err{color:#F0866F}}
+:root[data-theme="dark"] .status.err{color:#F0866F}
+.alt{margin-top:28px;display:grid;gap:6px;color:var(--muted);font-size:16px}
+.alt b{color:var(--ink)}
+
+.phead{padding-block:56px 8px}
+.phead h1{font-size:clamp(36px,5.4vw,56px);font-weight:800;letter-spacing:-.02em;margin-top:14px}
+.phead .lede{color:var(--muted);font-size:19px;margin-top:16px;max-width:56ch}
+.block{padding-block:40px 24px}
+.prose{max-width:68ch}
+.prose p{color:var(--muted);margin-top:14px}
+.prose h2{margin-top:36px}
+</style>
+
+<header>
+  <div class="wrap bar">
+    <a class="brand" href="index.html" aria-label="Devon Farm home">
+      <img src="/DFLOGO.png" alt="" width="56" height="52">
+      Devon Farm
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-expanded="false" aria-controls="mainNav">Menu</button>
+    <nav id="mainNav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="horses.html">Our Horses</a></li>
+        <li><a href="about.html">About us</a></li>
+        <li><a href="news.html">News</a></li>
+        <li><a href="available.html" aria-current="page">Available Horses</a></li>
+        <li><a href="reviews.html">Reviews</a></li>
+        <li><a href="blog.html">Blog</a></li>
+        <li class="cta"><a href="contact.html">Contact us</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap phead"><span class="eyebrow">Available now</span><h1>Foals and horses looking for homes</h1><p class="lede">Foals from our own breeding and the occasional started adult under saddle. Every horse can be met in person before you decide.</p></div>
+  <section class="block"><div class="wrap"><div class="cards"><article class="card"><div class="photo"><span class="badge">Available</span><span class="tag">Photo slot</span></div><div class="body"><h3>Horse name</h3><dl><dt>Type</dt><dd>Foal</dd><dt>Sire × Dam</dt><dd>Add parents</dd><dt>Born</dt><dd>Add date and color</dd></dl><div class="row"><span class="price">$ —</span><a class="link" href="contact.html">Ask about →</a></div></div></article><article class="card"><div class="photo"><span class="badge">Available</span><span class="tag">Photo slot</span></div><div class="body"><h3>Horse name</h3><dl><dt>Type</dt><dd>Foal</dd><dt>Sire × Dam</dt><dd>Add parents</dd><dt>Born</dt><dd>Add date and color</dd></dl><div class="row"><span class="price">$ —</span><a class="link" href="contact.html">Ask about →</a></div></div></article><article class="card"><div class="photo"><span class="badge">Available</span><span class="tag">Photo slot</span></div><div class="body"><h3>Horse name</h3><dl><dt>Type</dt><dd>Adult, under saddle</dd><dt>Age · Height</dt><dd>Add age · hands</dd><dt>Training</dt><dd>Add level and experience</dd></dl><div class="row"><span class="price">$ —</span><a class="link" href="contact.html">Ask about →</a></div></div></article></div><p class="note">Placeholder cards: two foals and one adult. Send the real horses and photos and they will replace these.</p></div></section>
+
+  <section style="padding-top:24px">
+    <div class="wrap">
+      <div class="contact">
+        <div><h2>Questions about a horse?</h2><p>Tell us which one you like, or what you are looking for, including upcoming foals.</p></div>
+        <div class="btns"><a class="btn" href="contact.html">Contact us</a><a class="btn ghost" href="available.html">Browse available horses</a></div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="site">
+  <div class="wrap cols">
+    <span>© 2026 Devon Farm. All rights reserved.</span>
+    <ul>
+      <li><a href="about.html">About us</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var b=document.getElementById('menuBtn'),n=document.getElementById('mainNav');
+  b.addEventListener('click',function(){var o=n.classList.toggle('open');b.setAttribute('aria-expanded',o)});
+  n.addEventListener('click',function(e){if(e.target.tagName==='A'){n.classList.remove('open');b.setAttribute('aria-expanded','false')}});
+})();
+</script>

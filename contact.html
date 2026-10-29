@@ -244,7 +244,6 @@ footer.site a:hover{color:var(--ink);text-decoration:underline}
     var d=Object.fromEntries(new FormData(f).entries());
     if(!d.name||!d.email||!d.message){say('Please fill in your name, email and message.','err');return}
     if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(d.email)){say('That email address does not look right.','err');return}
-    if(d.access_key==='f8f3b944-30f6-45bf-a234-2684d9098924'){say('This form is not connected yet. Please check back soon.','err');return}
     btn.disabled=true;say('Sending...');
     fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(d)})
       .then(function(r){return r.json()})
